@@ -171,11 +171,15 @@ public class Login_activity extends AppCompatActivity {
         //a.addCategory(Intent.CATEGORY_HOME);
         //a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         //startActivity(a);
-        Toast toast = Toast.makeText(getApplicationContext(),
+
+        /*Toast toast = Toast.makeText(getApplicationContext(),
                 "ПОЖАЛУЙСТА ВВЕДИТЕ ЛОГИН И ПАРОЛЬ",
                 Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.CENTER, 0, 0);
-        toast.show();
+        toast.show();*/
+
+        finish();
+
         return;
     }
     /*

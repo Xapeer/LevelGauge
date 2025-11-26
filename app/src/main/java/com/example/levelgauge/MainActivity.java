@@ -325,7 +325,6 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
 
-
                 showSettingsWindow();
             }
         });
@@ -334,9 +333,7 @@ public class MainActivity extends AppCompatActivity {
         btnScan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 scanLeDevice(!mScanning);
-
             }
         });
 
@@ -344,7 +341,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 scanLeDevice(false);
-
             }
         });
 
@@ -759,32 +755,29 @@ public class MainActivity extends AppCompatActivity {
                                 ///////////////////////////////////////////////
                                 //NEW VERSION FOR RASHID////////////////////////////////////
                                 currentString = receivedValueStr;
+                                System.out.println(currentString);
+
                                 int index_of_d = currentString.indexOf('d');
                                 int index_of_t = currentString.indexOf('t');
                                 int index_of_v = currentString.indexOf('v');
                                 int index_of_c = currentString.indexOf('c');
                                 int index_of_k = currentString.indexOf('k');
-                                String conductivity = currentString.substring(index_of_c, index_of_k);
-                                String dist = currentString.substring(index_of_d, index_of_t);
-                                String tempreture = currentString.substring(index_of_t, index_of_v);
-                                String voltage = currentString.substring(index_of_v, index_of_c);
 
-                                conductivity = conductivity.substring(1);
-                                dist = dist.substring(1);
-                                tempreture = tempreture.substring(1);
-                                voltage = voltage.substring(1);
+                                String conductivity = currentString.substring(index_of_c + 1, index_of_k);
+                                String distance = currentString.substring(index_of_d + 1, index_of_t);
+                                String temperature = currentString.substring(index_of_t + 1, index_of_v);
+                                String voltage = currentString.substring(index_of_v + 1, index_of_c);
 
-                                String string_c = currentString.substring(index_of_d, index_of_t);
-                                System.out.println(string_c);
-                                String[] output = receivedValueStr.split("d");
-                                StringBuffer sb = new StringBuffer(output[1]);
-                                System.out.println(sb);
-                                String[] testoutput = receivedValueStr.split("t");
-                                StringBuffer sb2 = new StringBuffer(testoutput[1]);
-                                System.out.println(sb2);
-                                sb2.insert(1, ".");
-                                tvReceivedData.setText("C" + "       " + conductivity + "       " + "D" + "       " + dist);
-                                tvReceivedData2.setText("T" + "       " + tempreture + "       " + "V" + "       " + voltage);
+                                String displayText = "Проводимость: " + conductivity + "\n" +
+                                                     "Глубина: " + distance + "\n" +
+                                                     "Температура: " + temperature + "\n" +
+                                                     "Напряжение: " + voltage + "\n" +
+                                                     "Координаты: ";
+
+                                tvReceivedData.setText(displayText);
+
+                                //tvReceivedData.setText("C" + "       " + conductivity + "       " + "D" + "       " + dist);
+                                //tvReceivedData2.setText("T" + "       " + tempreture + "       " + "V" + "       " + voltage);
 
                                 ///////////////////////////////////////////////////////////////
                                 ///////////////////////////////////////////////////////////////
