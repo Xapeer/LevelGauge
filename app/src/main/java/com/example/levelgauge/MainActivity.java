@@ -763,15 +763,13 @@ public class MainActivity extends AppCompatActivity {
                                 int index_of_c = currentString.indexOf('c');
                                 int index_of_k = currentString.indexOf('k');
 
-                                String conductivity = currentString.substring(index_of_c + 1, index_of_k);
+                                //String conductivity = currentString.substring(index_of_c + 1, index_of_k);
                                 String distance = currentString.substring(index_of_d + 1, index_of_t);
-                                String temperature = currentString.substring(index_of_t + 1, index_of_v);
+                                //String temperature = currentString.substring(index_of_t + 1, index_of_v);
                                 String voltage = currentString.substring(index_of_v + 1, index_of_c);
 
-                                String displayText = "Проводимость: " + conductivity + "\n" +
-                                                     "Глубина: " + distance + "\n" +
-                                                     "Температура: " + temperature + "\n" +
-                                                     "Напряжение: " + voltage + "\n" +
+                                String displayText = "Глубина: " + distance + " cм" + "\n" +
+                                                     "Напряжение: " + voltage + " в" + "\n" +
                                                      "Координаты: ";
 
                                 tvReceivedData.setText(displayText);
