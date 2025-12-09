@@ -764,9 +764,9 @@ public class MainActivity extends AppCompatActivity {
                                 int index_of_k = currentString.indexOf('k');
 
                                 //String conductivity = currentString.substring(index_of_c + 1, index_of_k);
-                                String distance = currentString.substring(index_of_d + 1, index_of_t);
+                                String distance = currentString.substring(index_of_d + 1, index_of_v);
                                 //String temperature = currentString.substring(index_of_t + 1, index_of_v);
-                                String voltage = currentString.substring(index_of_v + 1, index_of_c);
+                                String voltage = currentString.substring(index_of_v + 1, index_of_k);
 
                                 String displayText = "Глубина: " + distance + " cм" + "\n" +
                                                      "Напряжение: " + voltage + " в" + "\n" +
