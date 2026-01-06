@@ -1107,33 +1107,31 @@ public class MainActivity extends AppCompatActivity {
             }
             else{
                 try{
-                    File root = new File(Environment.getExternalStorageDirectory(), DIR_SD);
-                    if (!root.exists()) {
-                        root.mkdirs();
-                    }
+                    //File root = new File(Environment.getExternalStorageDirectory(), DIR_SD);
+                    // getExternalStorageDirectory() requires permission to write
+                    // getExternalFilesDir() doesn't and uses app specific dir instead (/Android/data/com.example.appname)
+                    File root = getExternalFilesDir(null);
+
                     Date date = new Date();
                     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd-hh-mm");
                     String format = formatter.format(date);
-                    if(startsending == 1) {
-                        File log = new File(root, format + count_send_times + "history.txt");
-                        if (!log.exists()) {
-                            System.out.println("We had to make a new file.");
-                            log.createNewFile();
-                            startsending = 1;
-                        }
-                    }
-                    else if(startsending == 0){
-                        FileWriter fileWriter = new FileWriter(log, true);
-                        File log = new File(root, format + count_send_times + "history.txt");
-                        String text = testtext + "\n";
-                        fileWriter.write(text);
-                        fileWriter.close();
-                        //Toast.makeText(MainActivity.this, "Text saved", Toast.LENGTH_LONG).show();
-                        }
 
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+                    File log = new File(root, format + count_send_times + "history.txt");
+
+                    if (!log.exists()) {
+                        System.out.println("We had to make a new file.");
+                        log.createNewFile();
+                    }
+
+                    FileWriter fileWriter = new FileWriter(log, true);
+                    String text = testtext + "\n";
+                    fileWriter.write(text);
+                    fileWriter.close();
+
+                }
+                catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
