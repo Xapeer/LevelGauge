@@ -80,6 +80,8 @@ import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -758,24 +760,41 @@ public class MainActivity extends AppCompatActivity {
                                 System.out.println(currentString);
 
                                 int index_of_d = currentString.indexOf('d');
-                                int index_of_t = currentString.indexOf('t');
                                 int index_of_v = currentString.indexOf('v');
-                                int index_of_c = currentString.indexOf('c');
-                                int index_of_k = currentString.indexOf('k');
+                                int index_of_N = currentString.indexOf('N');
+                                int index_of_E = currentString.indexOf('E');
+                                int index_of_D = currentString.indexOf('D');
 
-                                //String conductivity = currentString.substring(index_of_c + 1, index_of_k);
                                 String distance = currentString.substring(index_of_d + 1, index_of_v);
-                                //String temperature = currentString.substring(index_of_t + 1, index_of_v);
-                                String voltage = currentString.substring(index_of_v + 1, index_of_k);
+
+                                // All string separators (',' '.' '-') are removed before sending,
+                                // so we need to add them back
+
+                                // Parse voltage string
+                                String voltage = currentString.substring(index_of_v + 1, index_of_N);
+                                if (voltage.length() == 3) {
+                                    voltage = voltage.substring(0,2) + "," + voltage.substring(2);
+                                }else {
+                                    voltage = voltage.substring(0,1) + "," + voltage.substring(1);
+                                }
+
+                                // Parse coordinates strings
+                                String north = currentString.substring(index_of_N + 1, index_of_E);
+                                String east = currentString.substring(index_of_E + 1, index_of_D);
+                                north = north.substring(0,2) + "." + north.substring(2);
+                                east = east.substring(0,2) + "." + east.substring(2);
+
+                                // Parse date string
+                                String date = currentString.substring(index_of_D + 1, index_of_D + 11);
+                                date = FormatDate(date);
 
                                 String displayText = "Глубина: " + distance + " cм" + "\n" +
                                                      "Напряжение: " + voltage + " в" + "\n" +
-                                                     "Координаты: ";
+                                                     "N: " + north + "\n" +
+                                                     "E: " + east + "\n" +
+                                                     "Дата: " + date;
 
                                 tvReceivedData.setText(displayText);
-
-                                //tvReceivedData.setText("C" + "       " + conductivity + "       " + "D" + "       " + dist);
-                                //tvReceivedData2.setText("T" + "       " + tempreture + "       " + "V" + "       " + voltage);
 
                                 ///////////////////////////////////////////////////////////////
                                 ///////////////////////////////////////////////////////////////
@@ -861,6 +880,19 @@ public class MainActivity extends AppCompatActivity {
 //        timer.cancel();
 //        timer.purge();
 //    }
+
+    public String FormatDate(String inputDate){
+
+        // Set input-output date patterns
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyMMddHHmm");
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yy-MM-dd HH:mm");
+
+        // Parse input date string
+        LocalDateTime dateTime = LocalDateTime.parse(inputDate, inputFormatter);
+
+        // Generate and return result
+        return dateTime.format(outputFormatter);
+    }
 
     public void switch_status(SwitchCompat switchCompat, Dialog Menudialog) {
         switchCompat.setChecked(false);
@@ -971,7 +1003,7 @@ public class MainActivity extends AppCompatActivity {
 
         else if (tmpArr[0] == 100) {
             author = 2;
-            tmparr_len = 32;
+            //tmparr_len = 32;
             //int a = tmpArr[14];
             //b = (a + 294) / 100;
             //formattedString = String.format("%.02d", b);
