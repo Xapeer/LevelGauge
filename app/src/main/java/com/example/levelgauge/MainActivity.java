@@ -768,11 +768,10 @@ public class MainActivity extends AppCompatActivity {
                                 String temperature = currentString.substring(index_of_t + 1, index_of_v);
                                 String voltage = currentString.substring(index_of_v + 1, index_of_c);
 
-                                String displayText = "Проводимость: " + conductivity + "\n" +
-                                                     "Глубина: " + distance + "\n" +
-                                                     "Температура: " + temperature + "\n" +
-                                                     "Напряжение: " + voltage + "\n" +
-                                                     "Координаты: ";
+                                String displayText = "Проводимость: " + conductivity + "μS/cm\n" +
+                                                     "Глубина: " + distance + "cm\n" +
+                                                     "Температура: " + temperature + "°C\n" +
+                                                     "Напряжение: " + voltage + "V\n";
 
                                 tvReceivedData.setText(displayText);
 
